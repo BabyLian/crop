@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图片剪切</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <style type="text/css">
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        .img{width: 100%;}
+        .demo{margin: 10px;}
+        .wrapper{width: 300px; height: 300px;}
+    </style>
+</head>
+<body>
+
+<div class="demo">
+    <div class="wrapper" id="J_Wrapper">
+
+    </div>
+    <p>
+        <input type="button" value="裁切看效果" id="J_Btn"/>
+    </p>
+    <p style="width:300px;height:300px;border:1px solid #ddd;" id="crop-result"></p>
+</div>
+
+<script src='crop.js'></script>
+
+<script type="text/javascript">
+    var wrapper = document.getElementById("J_Wrapper");
+    var crop = new  Crop({imgUrl:"1.jpg",wrapper:wrapper});
+    document.getElementById("J_Btn").onclick=function(){
+        var imgUrl = crop.cropDone();
+        var img=new Image();
+        img.onload=function(){
+            document.getElementById("crop-result").innerHTML="";
+            document.getElementById("crop-result").appendChild(this)
+        }
+        img.src=imgUrl;
+    };
+</script>
+
+
+
+
+</body>
+</html>
