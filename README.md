@@ -52,7 +52,7 @@ document.getElementById("J_RotateRight").onclick=function(){
 ```
 3、向右旋转
 ```
-fucntion rotateRight(){}
+fucntion rotateLeft(){}
 ```
 代码示例：
 ```
