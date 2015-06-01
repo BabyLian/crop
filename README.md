@@ -1,6 +1,6 @@
 # 插件用途：
 支持图片旋转，剪裁，适用于pc端和移动端
-![image](http://github.com/BabyLian/crop/raw/master/screenshots.png)
+![image](https://github.com/BabyLian/crop/raw/master/screenshots.png)
 # 用法:
 ```
 1、引入js文件
