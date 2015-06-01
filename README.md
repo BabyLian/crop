@@ -68,7 +68,7 @@ crop.getCropData();
 ###问题1、当canvas清除画布时,历史中的图像没有被清除
 
 
-当我画虚线的时候就遇到了这个问题, 导致这个问题的原因是: 我们没有发出beginPath和closePath的命令,这样所有的drawing命令就会在内存中堆积,一旦再次接收到stroke或其他命令时, 所有的路径都会被画出来。可参考[链接文字](http://codetheory.in/why-clearrect-might-not-be-clearing-canvas-pixels/)
+当我画虚线的时候就遇到了这个问题, 导致这个问题的原因是: 我们没有发出beginPath和closePath的命令,这样所有的drawing命令就会在内存中堆积,一旦再次接收到stroke或其他命令时, 所有的路径都会被画出来。可参考[http://codetheory.in/why-clearrect-might-not-be-clearing-canvas-pixels/](http://codetheory.in/why-clearrect-might-not-be-clearing-canvas-pixels/)
 
 解决方法: 在画图像之前,调用beginPath命令, 结束之后使用 closePath命令
 ```
@@ -78,7 +78,7 @@ ctx.closePath();
 ```
 
 ###问题2、 旋转图片时的坐标问题
-canvas旋转时，其实旋转的是整个坐标系，为了实现以坐标中心为旋转中心进行旋转，可以先将坐标系移到中央，然后再移到左上角或右上角（方便计算）可参考[链接文字](http://codetheory.in/canvas-rotating-and-scaling-images-around-a-particular-point/)
+canvas旋转时，其实旋转的是整个坐标系，为了实现以坐标中心为旋转中心进行旋转，可以先将坐标系移到中央，然后再移到左上角或右上角（方便计算）可参考[http://codetheory.in/canvas-rotating-and-scaling-images-around-a-particular-point/](http://codetheory.in/canvas-rotating-and-scaling-images-around-a-particular-point/)
 ```
 this.bgCtx.translate(this.bgCanvas.width / 2, this.bgCanvas.height / 2);
 this.bgCtx.rotate(degree);
