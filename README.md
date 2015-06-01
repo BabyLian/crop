@@ -1,13 +1,12 @@
 # 插件用途：
 支持图片旋转，剪裁，适用于pc端和移动端
-
+![image](http://github.com/BabyLian/crop/raw/master/screenshots.png)
 # 用法:
 ```
-引入js文件
+1、引入js文件
 <script src='crop.js'></script>
-```
-```
-创建对象,传入图片url, div元素(包含剪裁框的容器)
+
+2、创建对象,传入图片url, div元素(包含剪裁框的容器)
 var wrapper = document.getElementById("J_Wrapper");
 var crop = new  Crop({imgUrl:"1.jpg",wrapper:wrapper});
 ```
