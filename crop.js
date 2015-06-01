@@ -25,13 +25,20 @@
             wrapper: document.body
         };
 
+        var copySet = {};
         if (typeof option === "object") {
             for (var key in def) {
                 if (option.hasOwnProperty(key)) {
                     def[key] = option[key];
                 }
+                //复制对象, 不包含wrapper(如果包含的话,在手机里json.stringify将它转化成字符串会出错)
+                if (key !== "wrapper") {
+                    copySet[key] = def[key];
+                }
             }
         }
+
+        this.copySet = copySet;
 
         if (!def.imgUrl) {
             return;
@@ -77,9 +84,10 @@
         this.canvas.height = height;
 
         //包含canvas的容器,主要用于设置背景(提高canvas性能)
-        var bg = "background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC);",
+        var bg = "background-color: #ccc;",
             canvasWrapper = document.createElement("div");
 
+        canvasWrapper.setAttribute("id", "J_CanvasWrapper");
         canvasWrapper.style.cssText = ["position: relative;", "width" + width + "px;", "height:" + height + "px;", bg].join("");
 
         //canvas 用于呈现剪裁框
@@ -95,6 +103,11 @@
         this.bgCtx = this.bgCanvas.getContext('2d');
         canvasWrapper.appendChild(this.bgCanvas);
 
+        var oldElem = document.getElementById("J_CanvasWrapper");
+        //删除原来的canvas
+        if (oldElem) {
+            def.wrapper.removeChild(oldElem);
+        }
         def.wrapper.appendChild(canvasWrapper);
 
         var self = this;
@@ -103,7 +116,6 @@
             self.init();
         };
         this.img.src = def.imgUrl;
-        this.def = def;
     }
 
     Crop.prototype = {
@@ -179,8 +191,7 @@
 
             //背景蒙层
             this.bgCtx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-            this.bgCtx.fillRect(0, 0, this.canvas.width, this.canvas.height);
-
+            this.bgCtx.fillRect(0, 0, this.bgCanvas.width, this.bgCanvas.height);
             //四个边角,用来限制剪裁框的移动范围
             //旋转 90deg 或 270deg宽高调换
             if (swap) {
@@ -198,7 +209,7 @@
             }
 
             //定位剪裁框的位置
-            var options = JSON.parse(JSON.stringify(this.def));
+            var options = JSON.parse(JSON.stringify(this.copySet));
             this.posCropBox(options);
             options = null;
             //剪裁框
@@ -322,7 +333,7 @@
                     case 0:
                     case 2:
                         var rate = this.img.width / this.maxWidth,
-                            x = this.x * rate,
+                            x = (this.x - this.left) * rate,
                             y = (this.y - this.top) * rate,
                             w = this.w * rate,
                             h = this.h * rate;
@@ -330,7 +341,7 @@
                     case 1:
                     case 3:
                         var rate = this.img.height / this.maxWidth,
-                            x = this.x * rate,
+                            x = (this.x - this.left) * rate,
                             y = (this.y - this.top) * rate,
                             w = this.w * rate,
                             h = this.h * rate;
@@ -579,12 +590,12 @@
                 if (self.bDragAll) {
                     var x = iMouseX - self.px,
                         y = iMouseY - self.py;
-                    if (x <= 0) {
-                        x = 0;
+                    if (x <= self.left) {
+                        x = self.left;
                     }
 
-                    if (x > self.maxWidth - self.w) {
-                        x = self.maxWidth - self.w;
+                    if (x > self.right - self.w) {
+                        x = self.right - self.w;
                     }
 
                     if (y <= self.top) {
