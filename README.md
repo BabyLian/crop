@@ -78,7 +78,7 @@ ctx.closePath();
 ```
 
 ###问题2、 旋转图片时的坐标问题
-canvas旋转时，其实旋转的是整个坐标系，为了实现以坐标中心为旋转中心进行旋转，可以先将坐标系移到中央，然后再移到左上角或右上角（方便计算）可参考[http://codetheory.in/canvas-rotating-and-scaling-images-around-a-particular-point/](http://codetheory.in/canvas-rotating-and-scaling-images-around-a-particular-point/)；旋转坐标后，接下来的一系列画图操作都会基于这个坐标系，但是通常我们不会希望如此，所以在改变坐标系之前要保存当前的坐标系this.bgCtx.save，旋转完后再恢复到原来的坐标系[http://jo2.org/html5-canvas-save-and-restore/](http://jo2.org/html5-canvas-save-and-restore/)
+canvas旋转时，其实旋转的是整个坐标系，为了实现以坐标中心为旋转中心进行旋转，可以先将坐标系移到中央，然后再移到左上角或右上角（方便计算）可参考[http://codetheory.in/canvas-rotating-and-scaling-images-around-a-particular-point/](http://codetheory.in/canvas-rotating-and-scaling-images-around-a-particular-point/)；旋转坐标后，接下来的一系列画图操作都会基于这个坐标系，但是通常我们不会希望如此，所以在改变坐标系之前要保存当前的坐标系this.bgCtx.save，旋转完后再恢复到原来的坐标系，可参考[http://jo2.org/html5-canvas-save-and-restore/](http://jo2.org/html5-canvas-save-and-restore/)
 ```
 this.bgCtx.save();
 this.bgCtx.translate(this.bgCanvas.width / 2, this.bgCanvas.height / 2);
