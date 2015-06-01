@@ -26,9 +26,7 @@ wrapper: 放置剪裁框的div
 1、获得剪裁后的图片，传入参数可限制最大宽度和高度
 ```
 fucntion cropDone(width, height){}
-```
 代码示例：
-```
 document.getElementById("J_Btn").onclick=function(){
         var imgUrl = crop.cropDone(200,200);
         var img=new Image();
@@ -43,9 +41,7 @@ document.getElementById("J_Btn").onclick=function(){
 2、向左旋转
 ```
 fucntion rotateRight(){}
-```
 代码示例：
-```
 document.getElementById("J_RotateRight").onclick=function(){
         crop.rotateRight();
     };
@@ -53,12 +49,16 @@ document.getElementById("J_RotateRight").onclick=function(){
 3、向右旋转
 ```
 fucntion rotateLeft(){}
-```
 代码示例：
-```
 document.getElementById("J_RotateLeft").onclick=function(){
         crop.rotateLeft();
     };
+```
+4、获得剪裁图片的实际信息(对应图片真实的像素) ,返回一个数组 [旋转角度, x坐标, y坐标, 宽度, 高度]
+```
+function getCropData(){}
+代码示例
+crop.getCropData();
 ```
 
 #说明
